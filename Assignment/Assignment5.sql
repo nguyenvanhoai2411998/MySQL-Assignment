@@ -78,3 +78,4 @@ DELIMITER ;
 SET @idtypeMax = 0;
 CALL Out_typeID_have_max_question(@idtypeMax);
 SELECT @idtypeMax;
+-- test
