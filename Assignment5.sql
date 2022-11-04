@@ -109,5 +109,5 @@ DROP PROCEDURE IF EXISTS rename_in;
   
   
   
-CALL rename_in('Chu Thực', 'thucchu1998@gmail.com',null,null);
+CALL rename_in('Chu Thực', 'viparess@gmail.com',null,null);
 select * from `account`;
