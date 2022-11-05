@@ -64,10 +64,12 @@ VALUES                     (1,         1,         9.5,  '2022-08-02'),
 -- --------------------------------------------------------------------------------------
 -- 2. viết lệnh để:
 -- a) lấy tất cả các môn học không có bất kì điểm nào
+-- lấy ra danh sách các môn ko xuất hiện trong bảng Trainee_Subject
 SELECT s.Subject_Name, s.Subject_ID FROM trainee_subject ts
 RIGHT JOIN `subject` s ON ts.Subject_ID = s.Subject_ID 
 WHERE ts.Subject_ID IS NULL
 UNION
+-- lấy ra các môn có trong bản Trainee_Subject nhưng ko có dữ liệu ghi về điểm
 SELECT s.Subject_Name, s.Subject_ID FROM trainee_subject ts
 JOIN `subject` s ON ts.Subject_ID = s.Subject_ID 
 GROUP BY ts.Subject_ID 
