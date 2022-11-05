@@ -50,7 +50,7 @@ VALUES               ('MySQL'),
                      ('NodeJS'),
                      ('PHP');
 			
-INSERT INTO trainee_subject(TraineeID, SubjectID, Mark, Exam_Day)
+INSERT INTO trainee_subject(Trainee_ID, Subject_ID, Mark, Exam_Day)
 VALUES                     (1,         1,         9.5,  '2022-08-02'),
                            (1,         2,         7.5,  '2022-10-02'),
                            (1,         3,         8.5,  '2022-09-02'),
@@ -59,7 +59,7 @@ VALUES                     (1,         1,         9.5,  '2022-08-02'),
                            (2,         2,         6.5,  '2022-10-02'),
                            (2,         3,         7.5,  '2022-09-02'),
                            (3,         1,         8.5,  '2022-08-02'),
-                           (3,         8,         7.5,  '2022-07-02');
+                           (3,         6,         7.5,  '2022-07-02');
 
 -- --------------------------------------------------------------------------------------
 -- 2. viết lệnh để:
@@ -134,14 +134,21 @@ DROP PROCEDURE IF EXISTS sp_DeletebyTraineeName;
 DELIMITER $$
 CREATE PROCEDURE sp_DeletebyTraineeName(IN Trainee_name varchar(30))
 BEGIN
+	 -- trường hợp nhập vào dấu '*'
+     IF (Trainee_name = '*') THEN
+       DELETE FROM Trainee_Subject;
+       DELETE FROM Trainee;
+     END IF;
+     -- trường hợp nhập vào tên
      With CTE_ID AS(
-     SELECT TraineeID ID FROM `Trainee` 
+     SELECT Trainee_ID ID FROM `Trainee` 
      WHERE First_Name = Trainee_name
      )
-     DELETE FROM Trainee_Subject WHERE TraineeID = (SELECT ID FROM CTE_ID);
+     DELETE FROM Trainee_Subject WHERE Trainee_ID = (SELECT ID FROM CTE_ID);
      DELETE FROM Trainee WHERE First_Name = Trainee_Name;
 END $$
 DELIMITER ;
 SET SQL_SAFE_UPDATES = 0; -- tắt update safe mode
-CALL sp_DeletebyTraineeName('Chu');
+CALL sp_DeletebyTraineeName('First_Name 1');
 SET SQL_SAFE_UPDATES = 1;
+CALL sp_DeletebyTraineeName('*');
